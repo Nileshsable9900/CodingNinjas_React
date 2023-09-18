@@ -1,0 +1,141 @@
+Q:-->Quotify App
+Send Feedback
+Create a Quotify App in React.
+
+
+
+Complete the App Component to take "name" and "Quote" as input from the user..
+When "Name" and "Quote" are filled and the enter key is pressed, then the Quote should be added successfully and it should appear below it.
+
+
+Expected Output
+
+
+
+Hint: (click to expand)
+You can use onKeyPress event and its properties. Learn more about this event from here
+
+
+
+                                                           SOLUTION:===>
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>React App</title>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const quotes = [];
+      const nameRef = React.createRef();
+      const quoteRef = React.createRef();
+
+      const clearInputs = () => {
+        nameRef.current.value = "";
+        quoteRef.current.value = "";
+      };
+
+      const handleQuote = (e) => {
+        const name = nameRef.current.value;
+        const quote = quoteRef.current.value;
+
+        if (!name || !quote) return;
+        if (e.key !== "Enter") return;
+        quotes.unshift({ name, quote });
+        clearInputs();
+        rootElement.render(<App />);
+      };
+
+      const App = () => (
+        <div className="App">
+          <h2>Quotify</h2>
+          <div>
+            <input ref={nameRef} placeholder="Name" />
+            <input
+              ref={quoteRef}
+              placeholder="Quote"
+              onKeyPress={handleQuote}
+            />
+          </div>
+          <div className="quotes">
+            {quotes.map((q, i) => (
+              <div key={i}>
+                <i>"{q.quote}"</i>
+                <b>~ {q.name}</b>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+
+      const rootElement = ReactDOM.createRoot(document.getElementById("root"));
+      rootElement.render(<App />);
+    </script>
+  </body>
+</html>
+
+
+
+
+
+                                                                             CSS:===>
+
+
+.App {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+form {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+form div {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+button {
+  width: 120px;
+  padding-block: 5px;
+  cursor: pointer;
+}
+
+th,
+td {
+  padding: 10px;
+}
+
+input {
+  padding: 5px;
+  font-size: 1.1rem;
+}
+
+.served {
+  background-color: red;
+}
+.dining {
+  background-color: lime;
+  cursor: pointer;
+}
+
+
